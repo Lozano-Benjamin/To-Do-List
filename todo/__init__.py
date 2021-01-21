@@ -6,5 +6,14 @@ def create_app():
 
     app.config.from_mapping(
         SECRET_KEY='mikey',
-        
+        DATABASE_HOST=os.environ.get('FLASK_DATABASE_HOST'),
+        DATABASE_USER=os.environ.get('FLASK_DATABASE_USER'),
+        DATABASE_PASSWORD=os.environ.get('FLASK_DATABASE_PASSWORD'),
+        DATABASE=os.environ.get('FLASK_DATABASE')
     )
+
+    @app.route("/hola")
+    def hola():
+        return "Test1"
+
+    return app
