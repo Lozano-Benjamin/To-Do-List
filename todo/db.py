@@ -23,7 +23,24 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
+def init_db():
+    db,cursor = get_db()
+    for i in instructions:
+        cursor.execute(i)
+
+    db.commit()    
+
+@click.command('init-db')
+@with_appcontext
+def init_db_command():
+    init_db()
+    click.echo('DB inicializada')
+
+
+
+
 #esta funcion recibira la app de Flask la cual ejecutara la funcion cuando
 #terminemos la ejecucion de algun metodo que hayamos llamado o endpoint que creamos
 def init_app(app):
     app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
