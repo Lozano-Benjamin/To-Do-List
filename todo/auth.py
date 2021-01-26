@@ -23,7 +23,7 @@ def register():
         error = None
         #ejecutamos el cursor para ver si hay algun error
         c.execute(
-            'SELECT id FROM USER WHERE username = %s'
+            'SELECT id FROM USER WHERE username = %s', (username,)
         )
         #si no existe user o pass en el form, se lo pedirá
         if not username:
