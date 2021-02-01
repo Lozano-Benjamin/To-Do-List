@@ -11,13 +11,15 @@ def create_app():
         DATABASE_PASSWORD=os.environ.get('FLASK_DATABASE_PASSWORD'),
         DATABASE=os.environ.get('FLASK_DATABASE')
     )
+    
 
     from . import db
 
     db.init_app(app)
 
+    from . import to_do
     from . import auth
-
     app.register_blueprint(auth.bp)
+    app.register_blueprint(to_do.bp)
 
     return app
